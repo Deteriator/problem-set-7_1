@@ -1,0 +1,54 @@
+<html>
+  <%-include('./partials/fill.ejs')%>
+  <body>
+      <section>
+        <h1>To-Do List</h1>
+        <a class="button" href="/add">Add New Task</a>
+        <table>
+          <thead>
+            <tr>
+              <th>To-Do</th>
+              <th>Done</th>
+            </tr>
+          </thead>
+          <tbody>
+           <% for(let id in doList){%>
+                <tr>
+                    <td>
+                        <li><%=doList[id].taskName%></li>
+                        <li><%=doList[id].details%></li>
+                        <li><%=doList[id].timeOfCreation%></li>
+                        <span class="taskButtons">
+                            <form action="/complete/<%=id%>" method="post" class="taskButton">
+                                <input class="button button-outline" type="submit" value="Complete">
+                            </form>
+                            
+                            <form action="/update/<%=id%>" method="post" class="taskButton">
+                                <input class="button button-outline" type="submit" value="Update">
+                            </form>
+                        
+                            <form action="/delete/<%=id%>" method="post" class="taskButton">
+                                <input class="button button-clear" type="submit" value="Delete">
+                            </form>
+                        </span>
+                    </td>
+                
+           <% } %>
+           <% for(let id in doneList){%>
+                    <td>
+                        <li><%=doneList[id].taskName%></li>
+                        <li><%=doneList[id].details%></li>
+                        <li><%=doneList[id].timeOfCreation%></li>
+                        <span class="taskButtons">
+                            <form action="/delete/<%=id%>" method="post" class="taskButton">
+                                <input class="button button-clear" type="submit" value="Delete">
+                            </form>
+                        </span>
+                    </td>
+                </tr>
+            <% } %>
+          </tbody>
+        </table>
+    </section>
+  </body>
+</html>
